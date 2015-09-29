@@ -1,1 +1,37 @@
-
+ <div class="row">
+    <div class="col-md-12" ng-show="questions.length > 0">
+    
+    <nav class= "navbar navbar-default" role= "navigation" >
+    <div class= "navbar-header" >
+    <a class="btn btn-lg btn-success" href="#/edit-question/0"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add new Question</a>
+    </div>
+    </nav>
+        <table class="table table-striped table-bordered">
+        <thead>
+        <th>Question&nbsp;</th>
+        <th>Options&nbsp;</th>
+        <th>Tag&nbsp;</th>
+        <th>Subject&nbsp;</th>
+        <th>Complexity&nbsp;</th>
+        <th>Status&nbsp;</th>
+        <th>Action&nbsp;</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="data in questions">
+                <td>{{data.question_title}}</td>
+               <td>{{data.options}}</td>
+                <td>{{data.tag_name}}</td>
+                <td>{{data.subject_name}}</td>
+                <td>{{data.complexity}}</td>
+                <td>{{data.status}}</td>
+                <td><a href="#/edit-question/{{data.question_id}}" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i>&nbsp; Edit Question</a></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="col-md-12" ng-show="questions.length == 0">
+        <div class="col-md-12">
+            <h4>No questions found</h4>
+        </div>
+    </div>
+</div>
