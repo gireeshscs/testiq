@@ -1,1 +1,51 @@
+<style type="text/css">
+  .form-horizontal input.ng-invalid.ng-dirty {
+    border-color: #FA787E;
+  }
+
+  .form-horizontal input.ng-valid.ng-dirty {
+    border-color: #78FA89;
+  }
+</style>
+<div class="view">
+    <div class="container">
+        <div class="row">
+        <nav class= "navbar navbar-default" role= "navigation" >
+        <div class= "navbar-header" >
+        <a class= "navbar-brand" href= "#/tags"><i class="glyphicon glyphicon-th-large"></i> Tag List </a>
+        <a ng-show="tag._id" class= "navbar-brand" href= "#/edit-tag/0"><i class="glyphicon glyphicon-plus"></i> Create Tag </a>
+        <a ng-show="tag._id" class= "navbar-brand pull-right"><i class="glyphicon glyphicon-edit"></i> Edit Tag Number: {{tag._id}}</a>
+        </div>
+        </nav>
+        <header>
+            <h3>{{title}}</h3>
+        </header>
+        <div class="col-md-12">
+
+<form role="form" name="myForm" class="form-horizontal">
+<div class="row">
+<div class= "form-group" ng-class="{error: myForm.tag_name.$invalid}">
+    <label class= "col-md-2"> Tag Name </label>
+    <div class="col-md-4">
+    <input name="tag_name" ng-model="tag.tag_name" type= "text" class= "form-control" placeholder="Tag name" required/>
+    <span ng-show="myForm.tag_name.$dirty && myForm.tag_name.$invalid" class="help-inline">Tag Name Required</span>
+    </div>
+</div>
+
+<div class= "form-group">
+    <label class= "col-md-2"></label>
+    <div class="col-md-4">
+    <a href="#/tags" class="btn">Cancel</a>
+        <button ng-click="saveTag(tag);" 
+                ng-disabled="isClean() || myForm.$invalid"
+                class="btn btn-primary">{{buttonText}}</button>
+        <button ng-click="deleteTag(tag)"
+                ng-show="tag._id" class="btn btn-warning">Delete</button>
+    </div>
+</div>
+</div>
+</form>
+        </div></div>
+    </div>
+</div>
 
