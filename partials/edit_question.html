@@ -1,0 +1,108 @@
+<style type="text/css">
+  .form-horizontal input.ng-invalid.ng-dirty {
+    border-color: #FA787E;
+  }
+
+  .form-horizontal input.ng-valid.ng-dirty {
+    border-color: #78FA89;
+  }
+</style>
+<div class="view">
+    <div class="container">
+        <div class="row">
+        <nav class= "navbar navbar-default" role= "navigation" >
+        <div class= "navbar-header" >
+        <a class= "navbar-brand" href= "#/questions"><i class="glyphicon glyphicon-th-large"></i> Manage Questions </a>
+        <a ng-show="question._id" class= "navbar-brand" href= "#/edit-question/0"><i class="glyphicon glyphicon-plus"></i> Create Question </a>
+        <a ng-show="question._id" class= "navbar-brand pull-right"><i class="glyphicon glyphicon-edit"></i> Edit Question Number: {{question._id}}</a>
+        </div>
+        </nav>
+        <header>
+            <h3>{{title}}</h3>
+        </header>
+        <div class="col-md-12">
+
+<form role="form" name="myForm" class="form-horizontal">
+<div class="row">
+<div class= "form-group" ng-class="{error: myForm.question_title.$invalid}">
+    <label class= "col-md-2"> Question </label>
+    <div class="col-md-4">
+    <textarea name="question_title" ng-model="question.question_title" rows="5" cols="20" class= "form-control" placeholder="Question" required/></textarea>
+    <span ng-show="myForm.question_title.$dirty && myForm.question_title.$invalid" class="help-inline">Question Required</span>
+    </div>
+</div>
+<div class= "form-group" ng-controller="test">
+    <label class= "col-md-2"> Options</label>
+    <div class="col-md-4">
+     <span><label>Answer</label></span><span style="margin-left:175px;padding-top:25px;position:absolute;"><button ng-click="add()">Add More</button></span>
+        <div ng-repeat="field in fields track by $index" ng-model="question.options">
+          <input type="radio" name="correct_answer" ng-model="question.correct_answer" value="$index">
+          <span style="margin-left:20px;"><input type="text"  name="options" ng-value="" ng-model='question.options[$index]'></span>
+          <button id="btn1" ng-click="remove($index)" ng-show="!$first">X</button><br><br>
+         <!-- <button id="btn1" ng-click="remove($index)" style="display:none">X</button><br><br>-->
+	 <span ng-show="myForm.correct_answer.$dirty && myForm.correct_answer.$invalid" class="help-inline">Answer Required</span>
+	 <span ng-show="myForm.correct_answer.$dirty && myForm.correct_answer.$invalid" class="help-inline">Answer Required</span>
+        </div>
+    </div>
+</div><br>
+<div class= "form-group">
+    <label class= "col-md-2">Tags </label>
+    <div class="col-md-4">
+   <select name="tagselect" id="tagselect"  multiple="multiple"  ng-model="question.tag" class="form-control" placeholder="Question Tag" ng-controller="tagOptionCtrl" 
+     ng-options="data.tag_id as data.tag_name for data in tagoptions" value="{{data.tag_id}}" ng-selected="question.tag = question.tag || tag[0]" ng-change="tagChanged()"> {{data.tag_name}}</select>
+<input type="hidden" ng-model="question.tag" name="tag" id="tag" value="{{question.tag}}"/>
+
+    </div>
+</div>
+
+<div class= "form-group">
+    <label class= "col-md-2">Subjects </label>
+    <div class="col-md-4">
+   <select name="subjectselect" multiple="multiple" ng-model="question.subject" class= "form-control" placeholder= "Question Subject" ng-controller="subjectOptionCtrl"
+	   ng-options="data.subject_id as data.subject_name for data in subjectoptions" value="{{data.subject_id}}" ng-selected="question.subject = question.subject || subject[0]" ng-change="subjectChanged()"> {{data.subject_name}}</select>
+<input type="hidden" ng-model="question.subject" name="subject" id="subject" value="{{question.subject}}"/>
+
+     </select>
+     <input type="hidden" name="subject[]" value="{{question.subject}}" />
+    </div>
+</div>
+
+<!--
+<div class= "form-group" ng-controller="ButtonsCtrl">
+    <label class= "col-md-2">Complexity </label>
+    <div class="col-md-4">
+        <pre>{{radioModel || 'null'}}</pre>
+ <div class="btn-group" >
+        <label class="btn btn-success" ng-model="radioModel" btn-radio="'low'" uncheckable>Low</label>
+        <label class="btn btn-success" ng-model="radioModel" btn-radio="'medium'" uncheckable>Medium</label>
+        <label class="btn btn-success" ng-model="radioModel" btn-radio="'high'" uncheckable>High</label>
+    </div>
+    </div>
+</div>
+-->
+<div class= "form-group">
+    <label class= "col-md-2">Complexity </label>
+    <div class="col-md-4">
+     <select name="complexity" ng-model="question.complexity" class= "form-control" placeholder= "Question complexity" ng-controller="complexityCtrl" 
+     ng-options="item.name as item.name for item in items" ng-selected = "question.complexity = question.complexity || complexity[0]">
+     </select>
+    </div>
+    <input type="hidden" name="status" ng-model="question.status" ng-value="1"/>
+</div>
+
+<div class= "form-group">
+    <label class= "col-md-2"></label>
+    <div class="col-md-4">
+    <a href="#/" class="btn">Cancel</a>
+        <button ng-click="saveQuestion(question);" 
+                ng-disabled="isClean() || myForm.$invalid"
+                class="btn btn-primary">{{buttonText}}</button>
+        <button ng-click="deleteQuestion(question)"
+                ng-show="question._id" class="btn btn-warning">Delete</button>
+    </div>
+</div>
+</div>
+</form>
+        </div></div>
+    </div>
+</div>
